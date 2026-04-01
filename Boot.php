@@ -11,10 +11,10 @@ class Boot
     public function register(): void
     {
         // On accroche le Slideshow tout en haut de la page d'accueil
-        HookManager::register(
+        /*HookManager::register(
             'displayHomeTop',
             'MagixSlideshow',
             [\Plugins\MagixSlideshow\src\FrontendController::class, 'renderWidget']
-        );
+        );*/
     }
 }
