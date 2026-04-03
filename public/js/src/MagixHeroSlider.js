@@ -23,7 +23,7 @@ class MagixHeroSlider {
             pauseOnHover: false,
             arrows: true,
             pagination: true,
-            speed: 1000,
+            speed: 1000/*,
             heightRatio: 0.4,
             breakpoints: {
                 992: {
@@ -33,7 +33,7 @@ class MagixHeroSlider {
                     heightRatio: 0.667,
                     arrows: false
                 }
-            }
+            }*/
         });
 
         heroSlider.mount();

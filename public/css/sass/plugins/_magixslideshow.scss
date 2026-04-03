@@ -29,7 +29,7 @@
       derrière le logo et le menu du header transparent. */
 #magix-hero-slideshow {
   //padding-top: calc(var(--header-h, 100px) + var(--toolbar-h, 40px));
-  margin-bottom: var(--spacer);
+  margin-bottom: calc(var(--spacer) * 2);
   .text-shadow {
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0px 0px 20px rgba(0, 0, 0, 0.3);
   }
