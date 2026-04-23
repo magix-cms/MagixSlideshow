@@ -25,7 +25,7 @@ class MagixHeroSlider {
             pagination: false,
             speed: 1000
         });
-        
+
         requestAnimationFrame(() => {
             heroSlider.mount();
         });

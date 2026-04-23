@@ -34,17 +34,16 @@
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0px 0px 20px rgba(0, 0, 0, 0.3);
   }
 }
-/* Réserve l'espace avant même que JS ne se charge */
-.magix-hero-slideshow .splide__track {
-  /* Exemple avec aspect-ratio (très performant) */
-  aspect-ratio: 21 / 9;
-  width: 100%;
-  /* Ou utilisez un min-height sur mobile/desktop */
-  min-height: 400px;
-}
+.magix-hero-slideshow {
+  .splide__track {
+    aspect-ratio: 21 / 9;
+    width: 100%;
+    min-height: 400px;
 
-@media (min-width: 992px) {
-  .magix-hero-slideshow .splide__track {
-    min-height: 600px;
+    // Remplacement du mixin par la Media Query standard Bootstrap (lg = 992px)
+    // C'est 100% compatible et ça ne plantera jamais à la compilation !
+    @media (min-width: 992px) {
+      min-height: 600px;
+    }
   }
 }
