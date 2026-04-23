@@ -38,16 +38,15 @@
                                             </p>
                                         {/if}
 
-                                        {* 🟢 CORRECTION 1 : div au lieu de p + nofilter pour interpréter TinyMCE *}
                                         {if !empty($slide.desc_slide)}
                                             <div class="lead mb-4 text-shadow fw-medium d-none d-md-block tinymce-content">
                                                 {$slide.desc_slide nofilter}
                                             </div>
                                         {/if}
 
-                                        {* 🟢 CORRECTION 2 : Conteneur Flex pour aligner les deux boutons *}
+                                        {* 🟢 CORRECTION : Suppression du {if nocache} et utilisation de d-none d-md-flex *}
                                         {if !empty($slide.link_url_slide) || !empty($slide.link2_url_slide)}
-                                            <div class="mt-4 d-flex gap-3 justify-content-center justify-content-lg-start flex-wrap">
+                                            <div class="mt-4 gap-3 justify-content-center justify-content-lg-start flex-wrap d-none d-md-flex">
 
                                                 {* BOUTON 1 PRINCIPAL *}
                                                 {if !empty($slide.link_url_slide)}
@@ -62,9 +61,8 @@
                                                 {* BOUTON 2 SECONDAIRE *}
                                                 {if !empty($slide.link2_url_slide)}
                                                     <a href="{$slide.link2_url_slide}"
-                                                            {* Vous pouvez changer 'btn-primary' par 'btn-outline-light' selon le rendu désiré *}
                                                        class="btn btn-main btn-lg px-4 py-3 fw-bold text-uppercase shadow"
-                                                            {if !empty($slide.link2_title_slide)}title="{$slide.link2_title_slide|escape}"{/if}
+                                                       {if !empty($slide.link2_title_slide)}title="{$slide.link2_title_slide|escape}"{/if}
                                                             {if $slide.blank2_slide}target="_blank" rel="noopener noreferrer"{/if}>
                                                         {$slide.link2_label_slide|default:'En savoir plus'}
                                                     </a>

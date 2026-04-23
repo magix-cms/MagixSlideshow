@@ -13,6 +13,7 @@ use App\Component\File\UploadTool;
 use App\Component\File\ImageTool;
 use Magepattern\Component\File\FileTool;
 use Magepattern\Component\HTTP\Url;
+use App\Component\Cache\CacheManager;
 
 class BackendController extends BaseController
 {
@@ -252,7 +253,7 @@ class BackendController extends BaseController
 
         // 3. Retour JSON formaté
         $msg = $isNew ? 'Le slide a été ajouté avec succès.' : 'Le slide a été mis à jour.';
-
+        CacheManager::clearFrontend('magixslideshow');
         // Si c'est une édition ET qu'une nouvelle image a été uploadée,
         // il faut dire au navigateur de recharger la page pour voir la nouvelle miniature.
         $reload = (!$isNew && isset($_FILES['img_slide']) && $_FILES['img_slide']['error'] === UPLOAD_ERR_OK);
@@ -306,6 +307,7 @@ class BackendController extends BaseController
             }
 
             if ($successCount > 0) {
+                CacheManager::clearFrontend('magixslideshow');
                 $msg = $successCount > 1 ? 'Les slides ont été supprimés.' : 'Le slide a été supprimé.';
                 echo $this->json->encode(['success' => true, 'message' => $msg, 'ids' => $cleanIds]);
                 exit;
@@ -344,6 +346,8 @@ class BackendController extends BaseController
                     $db->updateSlideOrder((int)$id, $position);
                     $position++;
                 }
+                CacheManager::clearFrontend('magixslideshow');
+
                 echo $this->json->encode(['success' => true, 'message' => 'Ordre mis à jour avec succès.']);
                 exit;
             } catch (\Exception $e) {

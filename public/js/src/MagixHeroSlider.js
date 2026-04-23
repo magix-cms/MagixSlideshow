@@ -21,22 +21,14 @@ class MagixHeroSlider {
             autoplay: true,
             interval: 6000,
             pauseOnHover: false,
-            arrows: true,
-            pagination: true,
-            speed: 1000/*,
-            heightRatio: 0.4,
-            breakpoints: {
-                992: {
-                    heightRatio: 0.586,
-                },
-                576: {
-                    heightRatio: 0.667,
-                    arrows: false
-                }
-            }*/
+            arrows: false,
+            pagination: false,
+            speed: 1000
         });
-
-        heroSlider.mount();
+        
+        requestAnimationFrame(() => {
+            heroSlider.mount();
+        });
     }
 }
 

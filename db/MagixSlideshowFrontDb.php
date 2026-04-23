@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace Plugins\MagixSlideshow\db;
 
-use App\Frontend\Db\BaseDb; // 🟢 On utilise la classe de base du FRONTEND
+use App\Frontend\Db\BaseDb;
 use Magepattern\Component\Database\QueryBuilder;
 
 class MagixSlideshowFrontDb extends BaseDb
 {
     /**
-     * Récupère la liste des slides publiés pour le Frontend
+     * Récupère la liste des slides publiés pour le Frontend (Avec Cache SQL)
      */
     public function getSlidesList(int $idLang): array
     {
+        // 🟢 1. Instanciation du gestionnaire de cache SQL
+        $cache = $this->getSqlCache();
         $qb = new QueryBuilder();
+
         $qb->select([
             's.id_slide', 's.img_slide',
             'sc.title_slide', 'sc.desc_slide',
@@ -30,6 +33,21 @@ class MagixSlideshowFrontDb extends BaseDb
             ->where('sc.published_slide = 1')
             ->orderBy('s.order_slide', 'ASC');
 
-        return $this->executeAll($qb) ?: [];
+        // 🟢 2. Génération de la clé de cache avec le Tag unique du plugin
+        $cacheKey = $cache->generateKey($qb->getSql(), $qb->getParams(), 'magixslideshow');
+
+        // 🟢 3. Vérification : Les données sont-elles déjà en cache ?
+        $data = $cache->get($cacheKey);
+        if ($data !== null) {
+            return $data; // On retourne le cache direct (0 requête SQL !)
+        }
+
+        // 🟢 4. Si le cache est vide, on interroge la base de données
+        $res = $this->executeAll($qb) ?: [];
+
+        // 🟢 5. On met le résultat en cache pour 24 heures (86400 secondes)
+        $cache->set($cacheKey, $res, 86400);
+
+        return $res;
     }
 }
