@@ -29,13 +29,13 @@ class FrontendController
             return '';
         }
 
-        $detect = new MobileDetect();
+        /*$detect = new MobileDetect();
         $imageSize = 'large';
         if ($detect->isMobile() && !$detect->isTablet()) {
             $imageSize = 'small';
         } elseif ($detect->isTablet()) {
             $imageSize = 'medium';
-        }
+        }*/
 
         $imageTool = new ImageTool();
         $formattedSlides = [];
@@ -59,8 +59,8 @@ class FrontendController
 
         $view = SmartyTool::getInstance('front');
         $view->assign([
-            'slideshow_items'   => $formattedSlides,
-            'device_image_size' => $imageSize
+            'slideshow_items'   => $formattedSlides/*,
+            'device_image_size' => $imageSize*/
         ]);
 
         return $view->fetch(ROOT_DIR . 'plugins/MagixSlideshow/views/front/widget.tpl');

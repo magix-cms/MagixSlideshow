@@ -12,7 +12,6 @@
         </a>
     </div>
 
-    {* 🟢 CORRECTION 1 : Ajout dynamique de la classe "add_form" pour que MagixForms déclenche la redirection *}
     <form action="index.php?controller=MagixSlideshow&action=saveSlide" method="post" enctype="multipart/form-data" class="validate_form {if $slide.id_slide == 0}add_form{/if}">
         <input type="hidden" name="hashtoken" value="{$hashtoken|default:''}">
         <input type="hidden" name="id_slide" value="{$slide.id_slide|default:0}">
@@ -27,7 +26,6 @@
                 <div class="mb-4 bg-light p-3 rounded border">
                     <label class="form-label fw-bold">Fichier Image {if $slide.id_slide == 0}<span class="text-danger">*</span>{/if}</label>
 
-                    {* 🟢 CORRECTION 2 : On utilise le chemin absolu direct et on ajoute un ID "preview-image" *}
                     {if !empty($slide.img_slide)}
                         <div class="d-flex align-items-center bg-white p-3 border rounded shadow-sm mb-3">
                             <div class="me-3">
@@ -41,7 +39,6 @@
                         </div>
                     {/if}
 
-                    {* Ajout d'un ID "img_input" pour le script JS *}
                     <input type="file" id="img_input" name="img_slide" class="form-control" accept="image/*" {if $slide.id_slide == 0}required{/if}>
                 </div>
 
@@ -50,7 +47,8 @@
                         {foreach $langs as $idLang => $iso}
                             <div class="tab-pane fade {if $iso@first}show active{/if}" id="lang-{$idLang}" role="tabpanel">
 
-                                <div class="row g-3">
+                                <div class="row g-4">
+                                    {* Ligne 1 : Titre et Statut *}
                                     <div class="col-md-9">
                                         <label class="form-label fw-medium">Titre (H2)</label>
                                         <input type="text" name="slide_content[{$idLang}][title_slide]" class="form-control" value="{$slide.content[$idLang].title_slide|default:''}">
@@ -63,36 +61,73 @@
                                         </div>
                                     </div>
 
+                                    {* 🟢 MODIFICATION : Ajout de la classe mceEditor pour TinyMCE *}
                                     <div class="col-12">
-                                        <label class="form-label fw-medium">Description courte</label>
-                                        <textarea name="slide_content[{$idLang}][desc_slide]" class="form-control" rows="3">{$slide.content[$idLang].desc_slide|default:''}</textarea>
+                                        <label class="form-label fw-medium">Description du slide</label>
+                                        <textarea name="slide_content[{$idLang}][desc_slide]" class="form-control mceEditor" rows="8">{$slide.content[$idLang].desc_slide|default:''}</textarea>
                                     </div>
 
+                                    {* 🟢 MODIFICATION : Disposition côte à côte des deux boutons d'action *}
                                     <div class="col-12">
-                                        <div class="p-3 bg-light rounded border border-light-subtle">
-                                            <h6 class="fw-bold mb-3 small text-uppercase text-muted"><i class="bi bi-link-45deg"></i> Bouton d'action (Optionnel)</h6>
-                                            <div class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label small">Texte du bouton</label>
-                                                    <input type="text" name="slide_content[{$idLang}][link_label_slide]" class="form-control form-control-sm" value="{$slide.content[$idLang].link_label_slide|default:''}">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label small">URL de destination</label>
-                                                    <input type="text" name="slide_content[{$idLang}][link_url_slide]" class="form-control form-control-sm" value="{$slide.content[$idLang].link_url_slide|default:''}">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label small">Attribut Title du lien</label>
-                                                    <input type="text" name="slide_content[{$idLang}][link_title_slide]" class="form-control form-control-sm" value="{$slide.content[$idLang].link_title_slide|default:''}">
-                                                </div>
-                                                <div class="col-md-6 d-flex align-items-end">
-                                                    <div class="form-check mb-1">
-                                                        <input class="form-check-input" type="checkbox" name="slide_content[{$idLang}][blank_slide]" value="1" {if ($slide.content[$idLang].blank_slide|default:0) == 1}checked{/if}>
-                                                        <label class="form-check-label small">Ouvrir dans un nouvel onglet (_blank)</label>
+                                        <div class="row g-3">
+
+                                            {* BOUTON 1 *}
+                                            <div class="col-lg-6">
+                                                <div class="p-3 bg-light rounded border border-light-subtle h-100">
+                                                    <h6 class="fw-bold mb-3 small text-uppercase text-primary"><i class="bi bi-1-circle"></i> Bouton d'action principal</h6>
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label small">Texte du bouton</label>
+                                                            <input type="text" name="slide_content[{$idLang}][link_label_slide]" class="form-control form-control-sm" value="{$slide.content[$idLang].link_label_slide|default:''}">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label small">URL de destination</label>
+                                                            <input type="text" name="slide_content[{$idLang}][link_url_slide]" class="form-control form-control-sm" value="{$slide.content[$idLang].link_url_slide|default:''}">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label small">Attribut Title</label>
+                                                            <input type="text" name="slide_content[{$idLang}][link_title_slide]" class="form-control form-control-sm" value="{$slide.content[$idLang].link_title_slide|default:''}">
+                                                        </div>
+                                                        <div class="col-md-6 d-flex align-items-end">
+                                                            <div class="form-check mb-1">
+                                                                <input class="form-check-input" type="checkbox" name="slide_content[{$idLang}][blank_slide]" value="1" {if ($slide.content[$idLang].blank_slide|default:0) == 1}checked{/if}>
+                                                                <label class="form-check-label small">Nouvel onglet (_blank)</label>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            {* BOUTON 2 (NOUVEAU) *}
+                                            <div class="col-lg-6">
+                                                <div class="p-3 bg-light rounded border border-light-subtle h-100">
+                                                    <h6 class="fw-bold mb-3 small text-uppercase text-secondary"><i class="bi bi-2-circle"></i> Bouton secondaire (Optionnel)</h6>
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label small">Texte du bouton</label>
+                                                            <input type="text" name="slide_content[{$idLang}][link2_label_slide]" class="form-control form-control-sm" value="{$slide.content[$idLang].link2_label_slide|default:''}">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label small">URL de destination</label>
+                                                            <input type="text" name="slide_content[{$idLang}][link2_url_slide]" class="form-control form-control-sm" value="{$slide.content[$idLang].link2_url_slide|default:''}">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label small">Attribut Title</label>
+                                                            <input type="text" name="slide_content[{$idLang}][link2_title_slide]" class="form-control form-control-sm" value="{$slide.content[$idLang].link2_title_slide|default:''}">
+                                                        </div>
+                                                        <div class="col-md-6 d-flex align-items-end">
+                                                            <div class="form-check mb-1">
+                                                                <input class="form-check-input" type="checkbox" name="slide_content[{$idLang}][blank2_slide]" value="1" {if ($slide.content[$idLang].blank2_slide|default:0) == 1}checked{/if}>
+                                                                <label class="form-check-label small">Nouvel onglet (_blank)</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
+
                                 </div>
 
                             </div>
@@ -110,18 +145,16 @@
     </form>
 {/block}
 
-{* 🟢 CORRECTION 3 : Suppression de MagixFormTools et ajout d'un script de preview instantanée *}
 {block name="javascripts" append}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Prévisualisation instantanée de l'image (Plus besoin de recharger la page !)
+            // Prévisualisation instantanée de l'image
             const imgInput = document.getElementById('img_input');
             const previewImg = document.getElementById('preview-image');
 
             if (imgInput && previewImg) {
                 imgInput.addEventListener('change', function() {
                     if (this.files && this.files[0]) {
-                        // Crée une URL temporaire pour afficher l'image sélectionnée instantanément
                         previewImg.src = URL.createObjectURL(this.files[0]);
                     }
                 });

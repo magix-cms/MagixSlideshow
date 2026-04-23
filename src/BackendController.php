@@ -179,13 +179,24 @@ class BackendController extends BaseController
         if (isset($_POST['slide_content']) && is_array($_POST['slide_content'])) {
             foreach ($_POST['slide_content'] as $idLang => $c) {
                 $contentData[$idLang] = [
-                    'title_slide'      => FormTool::simpleClean($c['title_slide'] ?? ''),
-                    'desc_slide'       => $c['desc_slide'] ?? '',
-                    'link_url_slide'   => FormTool::simpleClean($c['link_url_slide'] ?? ''),
-                    'link_label_slide' => FormTool::simpleClean($c['link_label_slide'] ?? ''),
-                    'link_title_slide' => FormTool::simpleClean($c['link_title_slide'] ?? ''),
-                    'blank_slide'      => isset($c['blank_slide']) ? 1 : 0,
-                    'published_slide'  => isset($c['published_slide']) ? 1 : 0
+                    'title_slide'       => $c['title_slide'] ?? '',
+                    // Note pour TinyMCE: On ne met pas de simpleClean ici pour garder le HTML
+                    'desc_slide'        => $c['desc_slide'] ?? '',
+
+                    // --- BOUTON 1 ---
+                    'link_url_slide'    => FormTool::simpleClean($c['link_url_slide'] ?? ''),
+                    'link_label_slide'  => FormTool::simpleClean($c['link_label_slide'] ?? ''),
+                    'link_title_slide'  => FormTool::simpleClean($c['link_title_slide'] ?? ''),
+                    'blank_slide'       => isset($c['blank_slide']) ? 1 : 0,
+
+                    // --- BOUTON 2 (Nouveau) ---
+                    'link2_url_slide'   => FormTool::simpleClean($c['link2_url_slide'] ?? ''),
+                    'link2_label_slide' => FormTool::simpleClean($c['link2_label_slide'] ?? ''),
+                    'link2_title_slide' => FormTool::simpleClean($c['link2_title_slide'] ?? ''),
+                    'blank2_slide'      => isset($c['blank2_slide']) ? 1 : 0,
+
+                    // --- STATUT ---
+                    'published_slide'   => isset($c['published_slide']) ? 1 : 0
                 ];
             }
         }

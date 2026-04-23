@@ -15,10 +15,19 @@ class MagixSlideshowFrontDb extends BaseDb
     public function getSlidesList(int $idLang): array
     {
         $qb = new QueryBuilder();
-        $qb->select(['s.id_slide', 's.img_slide', 'sc.title_slide', 'sc.desc_slide', 'sc.link_url_slide', 'sc.link_label_slide', 'sc.link_title_slide', 'sc.blank_slide', 'sc.published_slide'])
+        $qb->select([
+            's.id_slide', 's.img_slide',
+            'sc.title_slide', 'sc.desc_slide',
+            // Bouton 1
+            'sc.link_url_slide', 'sc.link_label_slide', 'sc.link_title_slide', 'sc.blank_slide',
+            // Bouton 2
+            'sc.link2_url_slide', 'sc.link2_label_slide', 'sc.link2_title_slide', 'sc.blank2_slide',
+            // Statut
+            'sc.published_slide'
+        ])
             ->from('mc_magixslideshow', 's')
             ->leftJoin('mc_magixslideshow_content', 'sc', 's.id_slide = sc.id_slide AND sc.id_lang = ' . $idLang)
-            ->where('sc.published_slide = 1') // On filtre directement en SQL, c'est plus performant !
+            ->where('sc.published_slide = 1')
             ->orderBy('s.order_slide', 'ASC');
 
         return $this->executeAll($qb) ?: [];
