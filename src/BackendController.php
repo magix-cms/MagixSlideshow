@@ -23,7 +23,7 @@ class BackendController extends BaseController
 
         $action = $_GET['action'] ?? null;
 
-        // 🟢 INTERCEPTION : table-forms.tpl utilise '?edit=ID' pour les boutons de modification
+        //  INTERCEPTION : table-forms.tpl utilise '?edit=ID' pour les boutons de modification
         if (isset($_GET['edit'])) {
             $action = 'edit';
         }
@@ -137,7 +137,7 @@ class BackendController extends BaseController
             exit;
         }
 
-        // 🟢 NOUVEAU : Traitement de l'image pour avoir la miniature dans le formulaire
+        //  NOUVEAU : Traitement de l'image pour avoir la miniature dans le formulaire
         if (!empty($data['img_slide'])) {
             $imageTool = new ImageTool();
             $data['name_img'] = $data['img_slide']; // Nécessaire pour ImageTool
@@ -211,7 +211,7 @@ class BackendController extends BaseController
         // 2. Gestion de l'Upload d'image
         if (isset($_FILES['img_slide']) && $_FILES['img_slide']['error'] === UPLOAD_ERR_OK) {
 
-            // 🟢 NOUVEAU : Nettoyage du dossier avant le nouvel upload
+            //  NOUVEAU : Nettoyage du dossier avant le nouvel upload
             // Si c'est une mise à jour (idSlide > 0), on vide le dossier pour supprimer l'ancienne image et ses miniatures
             if (!$isNew) {
                 $slideDir = ROOT_DIR . 'upload' . DS . 'magixslideshow' . DS . $idSlide;
@@ -233,7 +233,7 @@ class BackendController extends BaseController
                 'name'    => $seoName // Le fichier s'appellera "mon-super-titre.jpg"
             ];
 
-            // 🟢 MAGIE DU CORE : L'outil crée les dossiers manquants tout seul via UrlTool
+            //  MAGIE DU CORE : L'outil crée les dossiers manquants tout seul via UrlTool
             $result = $uploadTool->singleImageUpload(
                 'magixslideshow',
                 'magixslideshow',
@@ -300,7 +300,7 @@ class BackendController extends BaseController
                 if ($db->deleteSlide($idSlide)) {
                     $successCount++;
 
-                    // 🟢 NOUVEAU : Suppression physique du dossier et de son contenu
+                    //  NOUVEAU : Suppression physique du dossier et de son contenu
                     $slideDir = ROOT_DIR . 'upload' . DS . 'magixslideshow' . DS . $idSlide;
                     FileTool::remove($slideDir);
                 }

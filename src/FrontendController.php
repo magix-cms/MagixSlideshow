@@ -12,13 +12,13 @@ class FrontendController
 {
     public static function renderWidget(array $params = []): string
     {
-        // 🟢 1. SÉCURITÉ / AIGUILLAGE
+        //  1. SÉCURITÉ / AIGUILLAGE
         $hookName = $params['name'] ?? '';
         if (!str_starts_with($hookName, 'displayHome')) {
             return '';
         }
 
-        // 🟢 2. TRAITEMENT NORMAL
+        //  2. TRAITEMENT NORMAL
         $currentLang = $params['current_lang'] ?? ['id_lang' => 1, 'iso_lang' => 'fr'];
         $idLang = (int)$currentLang['id_lang'];
 
