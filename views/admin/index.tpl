@@ -7,7 +7,7 @@
         <h1 class="h3 mb-0 text-gray-800">
             <i class="bi bi-images me-2"></i> Magix Slideshow
         </h1>
-        {* 🟢 Lien classique vers la méthode add() du contrôleur *}
+        {*  Lien classique vers la méthode add() du contrôleur *}
         <a href="index.php?controller=MagixSlideshow&action=add" class="btn btn-primary">
             <i class="bi bi-plus-lg me-1"></i> Ajouter un Slide
         </a>

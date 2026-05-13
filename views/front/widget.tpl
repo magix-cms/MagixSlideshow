@@ -44,7 +44,7 @@
                                             </div>
                                         {/if}
 
-                                        {* 🟢 CORRECTION : Suppression du {if nocache} et utilisation de d-none d-md-flex *}
+                                        {*  CORRECTION : Suppression du {if nocache} et utilisation de d-none d-md-flex *}
                                         {if !empty($slide.link_url_slide) || !empty($slide.link2_url_slide)}
                                             <div class="mt-4 gap-3 justify-content-center justify-content-lg-start flex-wrap d-none d-md-flex">
 

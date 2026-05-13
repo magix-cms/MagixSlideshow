@@ -61,13 +61,13 @@
                                         </div>
                                     </div>
 
-                                    {* 🟢 MODIFICATION : Ajout de la classe mceEditor pour TinyMCE *}
+                                    {*  MODIFICATION : Ajout de la classe mceEditor pour TinyMCE *}
                                     <div class="col-12">
                                         <label class="form-label fw-medium">Description du slide</label>
                                         <textarea name="slide_content[{$idLang}][desc_slide]" class="form-control mceEditor" rows="8">{$slide.content[$idLang].desc_slide|default:''}</textarea>
                                     </div>
 
-                                    {* 🟢 MODIFICATION : Disposition côte à côte des deux boutons d'action *}
+                                    {*  MODIFICATION : Disposition côte à côte des deux boutons d'action *}
                                     <div class="col-12">
                                         <div class="row g-3">
 
