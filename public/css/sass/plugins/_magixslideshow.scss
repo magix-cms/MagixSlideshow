@@ -47,3 +47,29 @@
     }
   }
 }
+.magix-split-hero {
+  // Couleur de fond (peut être gérée depuis le backend client plus tard)
+  background-color: #f8f9fa;
+
+  .splide__slide img,
+  .splide__slide picture {
+    // 🟢 CRUCIAL : Force l'image à remplir sa moitié d'écran sans se déformer
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  // Sur Mobile/Tablette, on donne une hauteur fixe au slider
+  // car les colonnes s'empilent les unes sous les autres
+  @media (max-width: 991.98px) {
+    .splide__track {
+      min-height: 50vh; // Le slider prend la moitié de l'écran du téléphone
+    }
+
+    // Inverser l'ordre sur mobile si on veut l'image en premier
+    .row {
+      flex-direction: column-reverse;
+    }
+  }
+}
