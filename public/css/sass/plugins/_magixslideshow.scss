@@ -28,20 +28,22 @@
       Cela empêche le texte (H2) de votre premier slide de remonter
       derrière le logo et le menu du header transparent. */
 #magix-hero-slideshow {
-  //padding-top: calc(var(--header-h, 100px) + var(--toolbar-h, 40px));
+  // 1. Espacements globaux du composant
+  // padding-top: calc(var(--header-h, 100px) + var(--toolbar-h, 40px));
   margin-bottom: calc(var(--spacer) * 2);
+
+  // 2. Éléments textuels (Enfants)
   .text-shadow {
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0px 0px 20px rgba(0, 0, 0, 0.3);
   }
-}
-.magix-hero-slideshow {
+
+  // 3. Structure du Slider (Enfants)
   .splide__track {
     aspect-ratio: 21 / 9;
     width: 100%;
     min-height: 400px;
 
-    // Remplacement du mixin par la Media Query standard Bootstrap (lg = 992px)
-    // C'est 100% compatible et ça ne plantera jamais à la compilation !
+    // Responsive : On agrandit la hauteur sur les écrans larges (lg = 992px)
     @media (min-width: 992px) {
       min-height: 600px;
     }
@@ -53,7 +55,7 @@
 
   .splide__slide img,
   .splide__slide picture {
-    // 🟢 CRUCIAL : Force l'image à remplir sa moitié d'écran sans se déformer
+    // Force l'image à remplir sa moitié d'écran sans se déformer
     width: 100%;
     height: 100%;
     object-fit: cover;

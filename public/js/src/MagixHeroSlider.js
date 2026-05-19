@@ -1,12 +1,12 @@
 /**
  * Magix Hero Slider
- * Initialise le diaporama Splide uniquement si l'élément cible existe dans le DOM.
+ * Initialisation immédiate pour optimiser la métrique LCP (Largest Contentful Paint).
  */
 class MagixHeroSlider {
     constructor(elementId) {
         this.sliderElement = document.getElementById(elementId);
 
-        // Sécurité : on s'arrête immédiatement si l'élément n'existe pas ou si Splide n'est pas chargé
+        // Sécurité : arrêt immédiat si l'élément n'existe pas ou si la librairie est absente
         if (!this.sliderElement || typeof Splide === 'undefined') {
             return;
         }
@@ -26,13 +26,12 @@ class MagixHeroSlider {
             speed: 1000
         });
 
-        requestAnimationFrame(() => {
-            heroSlider.mount();
-        });
+        // OPTIMISATION LCP : On monte le slider instantanément, sans aucun délai.
+        heroSlider.mount();
     }
 }
 
-// Initialisation au chargement du DOM
+// Initialisation dès que l'arbre DOM est prêt
 document.addEventListener('DOMContentLoaded', () => {
     new MagixHeroSlider('magix-hero-slideshow');
 });
