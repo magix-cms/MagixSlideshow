@@ -14,7 +14,7 @@
                     <li class="splide__slide position-relative">
 
                         {* 1. L'IMAGE : DANS LE FLUX NORMAL *}
-                        <div class="slide-image-wrapper w-100 z-0">
+                        <div class="slide-image-wrapper w-100 z-0 d-flex justify-content-center">
                             {$is_lazy = ($index > 0)}
                             {include file="components/img.tpl"
                             img=$slide.img

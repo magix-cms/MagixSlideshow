@@ -31,6 +31,10 @@
   // 1. Espacements globaux du composant
   // padding-top: calc(var(--header-h, 100px) + var(--toolbar-h, 40px));
   margin-bottom: calc(var(--spacer) * 2);
+  .position-absolute.z-2 {
+    user-select: text;
+    -webkit-user-select: text; // Pour la compatibilité Safari
+  }
 
   // 2. Éléments textuels (Enfants)
   .text-shadow {
