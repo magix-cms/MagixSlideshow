@@ -1,7 +1,7 @@
 {if isset($slideshow_items) && $slideshow_items|count > 0}
     <div id="magix-hero-slideshow" class="splide magix-slideshow w-100 overflow-hidden" aria-label="{#slideshow_aria_label#}">
         <div class="splide__track">
-            <ul class="splide__list">
+            <div class="splide__list">
                 {foreach $slideshow_items as $index => $slide}
                     {if $slide@first}
                         {$is_lazy = false}
@@ -11,7 +11,7 @@
                         {$prio = ''}
                     {/if}
 
-                    <li class="splide__slide position-relative">
+                    <div class="splide__slide position-relative">
 
                         {* 1. L'IMAGE : DANS LE FLUX NORMAL *}
                         <div class="slide-image-wrapper w-100 z-0 d-flex justify-content-center">
