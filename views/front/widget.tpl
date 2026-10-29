@@ -76,9 +76,9 @@
                             </div>
 
                         </div>
-                    </li>
+                    </div>
                 {/foreach}
-            </ul>
+            </div>
         </div>
     </div>
 {/if}

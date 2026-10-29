@@ -7,6 +7,8 @@ use Plugins\MagixSlideshow\db\MagixSlideshowFrontDb;
 use App\Component\File\ImageTool;
 use Magepattern\Component\Tool\SmartyTool;
 use Detection\MobileDetect;
+// 🛡️ FIX : Inclusion de ThemeManager pour la gestion de la surcharge
+use App\Frontend\Model\ThemeManager;
 
 class FrontendController
 {
@@ -63,6 +65,17 @@ class FrontendController
             'device_image_size' => $imageSize*/
         ]);
 
-        return $view->fetch(ROOT_DIR . 'plugins/MagixSlideshow/views/front/widget.tpl');
+        // ==========================================================
+        // GESTION DE LA SURCHARGE VIA THEMEMANAGER
+        // ==========================================================
+        $themePath = ThemeManager::getThemePath();
+
+        // Convention de surcharge : skin/MON_THEME/plugins/magixslideshow/widget.tpl
+        $overridePath = $themePath . DS . 'plugins' . DS . 'magixslideshow' . DS . 'widget.tpl';
+        $defaultPath  = ROOT_DIR . 'plugins' . DS . 'MagixSlideshow' . DS . 'views' . DS . 'front' . DS . 'widget.tpl';
+
+        $tplToLoad = file_exists($overridePath) ? $overridePath : $defaultPath;
+
+        return $view->fetch($tplToLoad);
     }
 }
